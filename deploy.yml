@@ -4,7 +4,6 @@ metadata:
   name: hairpin-proxy
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,7 +22,7 @@ spec:
         app: hairpin-proxy-haproxy
     spec:
       containers:
-        - image: compumike/hairpin-proxy-haproxy:0.2.1
+        - image: kbntx/hairpin-proxy-haproxy
           name: main
           resources:
             requests:
@@ -34,7 +33,6 @@ spec:
               cpu: "50m"
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -54,7 +52,6 @@ spec:
       targetPort: 443
 
 ---
-
 kind: ServiceAccount
 apiVersion: v1
 metadata:
@@ -62,7 +59,6 @@ metadata:
   namespace: hairpin-proxy
 
 ---
-
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -79,7 +75,6 @@ rules:
       - watch
 
 ---
-
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -94,7 +89,6 @@ subjects:
     namespace: hairpin-proxy
 
 ---
-
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -112,7 +106,6 @@ rules:
       - update
 
 ---
-
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -128,7 +121,6 @@ subjects:
     namespace: hairpin-proxy
 
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -151,7 +143,7 @@ spec:
         runAsUser: 405
         runAsGroup: 65533
       containers:
-        - image: compumike/hairpin-proxy-controller:0.2.1
+        - image: kbntx/hairpin-proxy-controller
           name: main
           resources:
             requests:
